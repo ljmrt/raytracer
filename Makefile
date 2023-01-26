@@ -1,23 +1,24 @@
-CC = gcc  # C compiler
-CFLAGS = -fPIC -Wall -Werror -Wextra -Wno-unused-result -Wno-unused-parameter -O2 -lSDL2main -lSDL  # C flags
-LDFLAGS = -shared   # linking flags
-RM = rm -f   # rm command
-TARGET_LIB = libengine.so  # engine lib
+TARGET = prog
+LIBS = -lSDL2main -lSDL2
+CC = gcc
+CFLAGS = -fPIC -Wall -Werror -Wextra -Wno-unused-result -Wno-unused-parameter -O2
 
-SRCS = main.c  # source files
-OBJS = $(SRCS:.c=.o)
+.PHONY: default all clean
 
-.PHONY: all
-all: ${TARGET_LIB}
+default: $(TARGET)
+all: default
 
-$(TARGET_LIB): $(OBJS)
-	$(CC) ${LDFLAGS} -o $@ $^
+OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
+HEADERS = $(wildcard *.h)
 
-$(SRCS:.c=.d):%.d:%.c
-	$(CC) $(CFLAGS) -MM $< >$@
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-include $(SRCS:.c=.d)
+.PRECIOUS: $(TARGET) $(OBJECTS)
 
-.PHONY: clean
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) $(CFLAGS)  $(LIBS) -o $@
+
 clean:
-	-${RM} ${TARGET_LIB} ${OBJS} $(SRCS:.c=.d)
+	-rm -f *.o
+	-rm -f $(TARGET)
