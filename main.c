@@ -26,9 +26,9 @@ int main(int argc, char* args[]) {
     SDL_Event poll_event;
     int quit = 0;
     while (!quit) {
-        int poll_result = SDL_PollEvent(&poll_event);  // poll for key presses 
+        SDL_PollEvent(&poll_event);  // poll for key presses 
         // if quit key pressed
-        if (poll_result && poll_event.type == SDL_QUIT) {
+        if (poll_event.key.keysym.sym == SDLK_ESCAPE) {
             quit = 1;
         }
     }
