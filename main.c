@@ -1,8 +1,7 @@
 #include <SDL2/SDL.h>
 #include "window_handler.h"
-
-#define WINDOW_WIDTH 640  // window width
-#define WINDOW_HEIGHT 480  //window height
+#include "screen_helper.h"
+#include "point_controller.h"
 
 int main(int argc, char* args[])
 {
@@ -13,8 +12,16 @@ int main(int argc, char* args[])
         &window, &pixel_renderer,
         "raytracer",
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-        WINDOW_WIDTH, WINDOW_HEIGHT);
+        SCREEN_WIDTH, SCREEN_HEIGHT);
     
+
+    for (int x = -(SCREEN_WIDTH/2), x < (SCREEN_WIDTH/2), x++) {
+        for (int y = -(SCREEN_HEIGHT/2), y < (SCREEN_HEIGHT/2), y++) {
+            // TODO: implement functions
+        }
+    }
+
+
     // keep the window up
     SDL_Event poll_event;
     while (1 < 2) {
