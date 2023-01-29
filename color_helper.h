@@ -2,7 +2,7 @@ struct rgb_color {
     int r;
     int b;
     int g;
-}
+};
 
 // TODO: background color struct
 

@@ -13,14 +13,12 @@ int main(int argc, char* args[])
         "raytracer",
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT);
-    
 
-    for (int x = -(SCREEN_WIDTH/2), x < (SCREEN_WIDTH/2), x++) {
-        for (int y = -(SCREEN_HEIGHT/2), y < (SCREEN_HEIGHT/2), y++) {
-            // TODO: implement functions
-        }
-    }
-
+    //for (int x = -(SCREEN_WIDTH/2), x < (SCREEN_WIDTH/2), x++) {
+    //    for (int y = -(SCREEN_HEIGHT/2), y < (SCREEN_HEIGHT/2), y++) {
+    //        // TODO: implement functions
+    //    }
+    //}
 
     // keep the window up
     SDL_Event poll_event;
