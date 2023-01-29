@@ -1,7 +1,7 @@
 struct rgb_color {
-    int r;
-    int b;
-    int g;
+    int r;  // intensity of red
+    int b;  // intensity of blue
+    int g;  // intensity of green
 };
 
 // TODO: background color struct

@@ -1,7 +1,7 @@
 struct point_3d {
-    int x;
-    int y;
-    int z;
+    int x;  // x position of point
+    int y;  // y position of point
+    int z;  // z position of point
 };
 
 // make(mallloc) point_3d struct out of given arguments

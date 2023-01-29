@@ -14,11 +14,15 @@ int main(int argc, char* args[])
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    //for (int x = -(SCREEN_WIDTH/2), x < (SCREEN_WIDTH/2), x++) {
-    //    for (int y = -(SCREEN_HEIGHT/2), y < (SCREEN_HEIGHT/2), y++) {
-    //        // TODO: implement functions
-    //    }
-    //}
+    struct point_3d *camera_position = make_point_3d(0, 0, 0);
+    for (int x = -(SCREEN_WIDTH/2), x < (SCREEN_WIDTH/2), x++) {
+        for (int y = -(SCREEN_HEIGHT/2), y < (SCREEN_HEIGHT/2), y++) {
+            struct point_3d *viewport_point = get_viewport_position(x, y);  // translate canvas coordinates to viewport coordinates
+            struct rgb_color color = trace_ray(*camera_position, *viewport_position, 1, 100000);  // get the color at the intersection of the ray
+            SDL_SetRenderDrawColor(pixel_renderer, color.r, color.g, color.b, 255);
+            SDL_RenderDrawPoint(renderer, x, y);
+        }
+    }
 
     // keep the window up
     SDL_Event poll_event;
