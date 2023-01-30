@@ -1,3 +1,6 @@
+#ifndef POINT_CONTROLLER_H
+#define POINT_CONTROLLER_H
+
 struct point_3d {
     int x;  // x position of point
     int y;  // y position of point
@@ -32,3 +35,5 @@ struct point_3d subtract_3d(struct point_3d point_1, struct point_3d point_2);
 // @param vector_2 the second vector to use
 // @return dot product
 int dot_product_3d(struct point_3d vector_1, struct point_3d vector_2);
+
+#endif  // POINT_CONTROLLER_H

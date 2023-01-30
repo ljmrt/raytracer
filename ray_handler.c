@@ -1,16 +1,17 @@
+#include <stdlib.h>
 #include <math.h>
 #include "ray_handler.h"
 #include "object_collection.h"
 
-struct rgb_color trace_ray(struct point_3d camera_position, int viewport_distance, int advance_minimum, int advance_maximum)
+struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, int advance_minimum, int advance_maximum)
 {
     int closest_intersect = advance_maximum;
-    struct sphere_object closest_sphere = NULL;
+    struct sphere_object closest_sphere;
 
     struct sphere_object *scene_head = fetch_scene_head();
     while (scene_head != NULL) {
         int intersect1, intersect2;
-        ray_intersects(camera_position, viewport_distance, *scene_head, &intersect1, &intersect2);
+        ray_intersects(camera_position, ray_direction, *scene_head, &intersect1, &intersect2);
         
         if (intersect1 >= advance_minimum && intersect1 <= advance_maximum && intersect1 < closest_intersect) {
             closest_intersect = intersect1;
@@ -24,13 +25,14 @@ struct rgb_color trace_ray(struct point_3d camera_position, int viewport_distanc
         scene_head = scene_head->next_object;
     }
 
-    if (closest_sphere == NULL) {
+    // sphere hasn't changed
+    if (closest_sphere.radius == 0) {
         // return background color
     }
     return closest_sphere.color;
 }
 
-void ray_intersects(struct point_3d O, int D, struct sphere_object sphere, int *t1, int *t2)
+void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, int *t1, int *t2)
 {
    int sphere_radius = sphere.radius;
    struct point_3d CO = subtract_3d(O, sphere.center);

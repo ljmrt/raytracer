@@ -20,7 +20,7 @@ struct point_3d *get_viewport_position(int canvas_x, int canvas_y)
     return make_point_3d(viewport_x, viewport_y, viewport_z);
 }
 
-int subtract_3d(struct point_3d point_1, struct point_3d point_2)
+struct point_3d subtract_3d(struct point_3d point_1, struct point_3d point_2)
 {
     return *make_point_3d((point_1.x - point_2.x), (point_1.y - point_2.y), (point_1.z - point_2.z));
 }

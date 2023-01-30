@@ -1,10 +1,11 @@
+#include <stdlib.h>
 #include "object_collection.h"
 
 struct sphere_object *head_object = NULL;
 
 struct sphere_object *make_sphere(struct point_3d sphere_center, int sphere_radius, struct rgb_color sphere_color)
 {
-    struct sphere_object *made_sphere = (struct sphere_object *)malloc(sizeof(sphere_object));
+    struct sphere_object *made_sphere = (struct sphere_object *)malloc(sizeof(struct sphere_object));
     made_sphere->center = sphere_center;
     made_sphere->radius = sphere_radius;
     made_sphere->color = sphere_color;
@@ -13,9 +14,9 @@ struct sphere_object *make_sphere(struct point_3d sphere_center, int sphere_radi
     return made_sphere;
 }
 
-void *insert_sphere(struct sphere_object **node)
+void insert_sphere(struct sphere_object **node)
 {
-    *node->next_object = head_object;
+    (*node)->next_object = head_object;
     head_object = *node;
 }
 
@@ -29,7 +30,7 @@ void remove_sphere(struct sphere_object **node)
         }
         index = index->next_object;
     }
-    index->next_object = *node->next_object;
+    index->next_object = (*node)->next_object;
 
     free(*node);
 }

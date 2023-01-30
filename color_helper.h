@@ -1,3 +1,6 @@
+#ifndef COLOR_HELPER_H
+#define COLOR_HELPER_H
+
 struct rgb_color {
     int r;  // intensity of red
     int b;  // intensity of blue
@@ -14,3 +17,5 @@ struct rgb_color {
 // @return made rgb color struct pointer
 
 struct rgb_color *make_rgb_color(int red, int blue, int green);
+
+#endif  // COLOR_HELPER_H
