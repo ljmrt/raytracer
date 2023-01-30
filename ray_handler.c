@@ -1,5 +1,6 @@
+#include <math.h>
 #include "ray_handler.h"
-#incldue "object_collection.h"
+#include "object_collection.h"
 
 struct rgb_color trace_ray(struct point_3d camera_position, int viewport_distance, int advance_minimum, int advance_maximum)
 {
@@ -32,11 +33,11 @@ struct rgb_color trace_ray(struct point_3d camera_position, int viewport_distanc
 void ray_intersects(struct point_3d O, int D, struct sphere_object sphere, int *t1, int *t2)
 {
    int sphere_radius = sphere.radius;
-   // int CO = subtract_points_3d(O, sphere.center);
+   struct point_3d CO = subtract_3d(O, sphere.center);
 
-   // int a = dot_product_points_3d(D, D);
-   // int b = 2 * dot_product_points_3d(CO, D);
-   // int c = dot_product_points_3d(CO, CO) - (sphere_radius * sphere_radius);
+   int a = dot_product_3d(D, D);
+   int b = 2 * dot_product_3d(CO, D);
+   int c = dot_product_3d(CO, CO) - (sphere_radius * sphere_radius);
 
    int discriminant = (b * b) - (4 * a * c);
    if (discriminant < 0) {

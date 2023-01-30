@@ -18,3 +18,17 @@ struct point_3d *make_point_3d(int point_x, int point_y, int point_z);
 // @param canvas_y y position of the point to convert
 // @return 3D point of viewport position pointer
 struct point_3d *get_viewport_position(int canvas_x, int canvas_y);
+
+// get the difference of two 3d points
+//
+// @param point_1 the first point to use
+// @param point_2 the second point to use
+// @return difference
+struct point_3d subtract_3d(struct point_3d point_1, struct point_3d point_2);
+
+// get the dot product of two 3d points
+//
+// @param vector_1 the first vector to use
+// @param vector_2 the second vector to use
+// @return dot product
+int dot_product_3d(struct point_3d vector_1, struct point_3d vector_2);
