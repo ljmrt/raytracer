@@ -15,12 +15,16 @@ int main(int argc, char* args[])
         SCREEN_WIDTH, SCREEN_HEIGHT);
 
     struct point_3d *camera_position = make_point_3d(0, 0, 0);
+    // iterate through each pixel
     for (int x = -(SCREEN_WIDTH/2), x < (SCREEN_WIDTH/2), x++) {
         for (int y = -(SCREEN_HEIGHT/2), y < (SCREEN_HEIGHT/2), y++) {
             struct point_3d *viewport_point = get_viewport_position(x, y);  // translate canvas coordinates to viewport coordinates
             struct rgb_color color = trace_ray(*camera_position, *viewport_position, 1, 100000);  // get the color at the intersection of the ray
             SDL_SetRenderDrawColor(pixel_renderer, color.r, color.g, color.b, 255);
-            SDL_RenderDrawPoint(renderer, x, y);
+            // TODO: remove this translation
+            int translated_x = (SCREEN_WIDTH/2) + x;
+            int translated_y = (SCREEN_HEIGHT/2) - y;
+            SDL_RenderDrawPoint(renderer, translated_x, translated_y);
         }
     }
 
