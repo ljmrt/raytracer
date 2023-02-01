@@ -27,8 +27,8 @@ int main(int argc, char* args[])
     // iterate through each pixel
     for (int x = -(SCREEN_WIDTH/2); x < (SCREEN_WIDTH/2); x++) {
         for (int y = -(SCREEN_HEIGHT/2); y < (SCREEN_HEIGHT/2); y++) {
-            struct point_3d *viewport_point = get_viewport_position(x, y);  // translate canvas coordinates to viewport coordinates
-            struct rgb_color color = trace_ray(*camera_position, *viewport_point, 1, 10000000);  // get the color at the intersection of the ray
+            struct point_3d *direction = get_viewport_position(x, y);  // translate canvas coordinates to viewport coordinates
+            struct rgb_color color = trace_ray(*camera_position, *direction, 1, 10000000);  // get the color at the intersection of the ray
             SDL_SetRenderDrawColor(pixel_renderer, color.r, color.g, color.b, 255);
 
             // TODO: remove this translation
@@ -36,7 +36,7 @@ int main(int argc, char* args[])
             int translated_y = (SCREEN_HEIGHT/2) - y;
             SDL_RenderDrawPoint(pixel_renderer, translated_x, translated_y);
 
-            free(viewport_point);
+            free(direction);
         }
     }
 
