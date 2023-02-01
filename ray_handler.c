@@ -34,19 +34,19 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
 
 void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, int *t1, int *t2)
 {
-   int sphere_radius = sphere.radius;
-   struct point_3d CO = subtract_3d(O, sphere.center);
+    int sphere_radius = sphere.radius;
+    struct point_3d CO = subtract_3d(O, sphere.center);
 
-   int a = dot_product_3d(D, D);
-   int b = 2 * dot_product_3d(CO, D);
-   int c = dot_product_3d(CO, CO) - (sphere_radius * sphere_radius);
+    int a = dot_product_3d(D, D);
+    int b = 2 * dot_product_3d(CO, D);
+    int c = dot_product_3d(CO, CO) - (sphere_radius * sphere_radius);
 
-   int discriminant = (b * b) - (4 * a * c);
-   if (discriminant < 0) {
-        *t1 = 100000;  // TODO: implement global large number instead of inf.
-        *t2 = 100000;
+    int discriminant = (b * b) - (4 * a * c);
+    if (discriminant < 0) {
+        *t1 = 10000000;  // TODO: implement global large number instead of inf.
+        *t2 = 10000000;
         return;
-   }
+    }
 
    *t1 = (-b + sqrt(discriminant)) / (2 * a);
    *t2 = (-b - sqrt(discriminant)) / (2 * a);
