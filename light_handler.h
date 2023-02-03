@@ -16,6 +16,7 @@ struct light {
 struct light *make_light(int light_id, float light_intensity, struct point_3d light_position);
 
 // insert light into lights linked list
+// inserts at head
 //
 // @param node light to insert into lights linked list
 void insert_light(struct light **node);

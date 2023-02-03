@@ -45,7 +45,7 @@ float compute_lighting(struct point_3d target_point, struct point_3d target_norm
 
     struct light *index = head_light;
     // iterate through linked list
-    while (index->next_light != NULL) {
+    while (index != NULL) {
         // if light is ambient
         if (index->id == 0) {
             light_intensity += index->intensity;
