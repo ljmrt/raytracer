@@ -35,4 +35,16 @@ void remove_sphere(struct sphere_object **node);
 // @return head of the scene linked list
 struct sphere_object *fetch_scene_head();
 
+// make a sphere object and insert it into the scene linked list with the provided arguments
+//
+// @param sphere_center_x sphere center point x 
+// @param sphere_center_y sphere center point y 
+// @param sphere_center_z sphere center point z 
+// @param sphere_radius radius of the sphere
+// @param sphere_r red intensity of sphere
+// @param sphere_g green intensity of sphere
+// @param sphere_b blue intensity of sphere
+// @return pointer to sphere object
+struct sphere_object *create_sphere(float sphere_center_x, float sphere_center_y, float sphere_center_z, int sphere_radius, int sphere_r, int sphere_g, int sphere_b);
+    
 #endif  // OBJECT_COLLECTION_H
