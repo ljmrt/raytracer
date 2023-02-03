@@ -22,12 +22,33 @@ struct point_3d *make_point_3d(float point_x, float point_y, float point_z);
 // @return 3D point of viewport position pointer
 struct point_3d *get_viewport_position(float canvas_x, float canvas_y);
 
+// get the sum of two 3d points
+//
+// @param point_1 the first point to use
+// @param point_2 the second point to use
+// @return sum
+struct point_3d add_3d(struct point_3d point_1, struct point_3d point_2);
+
 // get the difference of two 3d points
 //
 // @param point_1 the first point to use
 // @param point_2 the second point to use
 // @return difference
 struct point_3d subtract_3d(struct point_3d point_1, struct point_3d point_2);
+
+// get the product of a constant and a point 
+//
+// @param point point to be multiplied
+// @param constant constant to multiply
+// @return product
+struct point_3d multiply_point(struct point_3d point, float constant);
+
+// get the quotient of a constant and a point
+//
+// @param point point to be divided
+// @param constant constant to divide the point by
+// @return quotient
+struct point_3d divide_point(struct point_3d point, float constant);
 
 // get the dot product of two 3d points
 // equation: a · b = |a| × |b| × cos(θ)
@@ -37,7 +58,7 @@ struct point_3d subtract_3d(struct point_3d point_1, struct point_3d point_2);
 // @param vector_1 the first vector to use
 // @param vector_2 the second vector to use
 // @return dot product
-float dot_product_3d(struct point_3d vector_1, struct point_3d vector_2);
+float dot_product_vector(struct point_3d vector_1, struct point_3d vector_2);
 
 // get the length of a vector(represented by a 3d point)
 // equation: | (x, y, z)^T |  =  √(x^2 + y^2 + z^2)

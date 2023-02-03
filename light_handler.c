@@ -1,9 +1,10 @@
+#include <stdlib.h>
 #include "light_handler.h"
 #include "point_controller.h"
 
 struct light *head_light = NULL;
 
-struct light *make_light(int light_id, float light_intensity, point_3d light_position)
+struct light *make_light(int light_id, float light_intensity, struct point_3d light_position)
 {
     struct light *made_light = (struct light *)malloc(sizeof(struct light));
     made_light->id = light_id;
@@ -20,7 +21,7 @@ void insert_light(struct light **node)
     head_light = *node;
 }
 
-remove_light(struct light **node)
+void remove_light(struct light **node)
 {
     struct light *index = head_light;
     // iterate through linked list
@@ -38,7 +39,7 @@ struct light *fetch_lights_head()
     return head_light;
 }
 
-float compute_lighting(point_3d target_point, point_3d target_normal)
+float compute_lighting(struct point_3d target_point, struct point_3d target_normal)
 {
     float light_intensity = 0;
 
@@ -47,7 +48,7 @@ float compute_lighting(point_3d target_point, point_3d target_normal)
     while (index->next_light != NULL) {
         // if light is ambient
         if (index->id == 0) {
-            light_intensity += index.intensity;
+            light_intensity += index->intensity;
             
             index = index->next_light;
             continue;
@@ -63,9 +64,9 @@ float compute_lighting(point_3d target_point, point_3d target_normal)
             light_vector = index->position;  // position member changes context depending on id
         }
 
-        float normal_light_product = dot_product_3d(target_normal, light_vector);
+        float normal_light_product = dot_product_vector(target_normal, light_vector);
         if (normal_light_product > 0) {
-            light_intensity += index->intensity * (normal_light_product / (vector_length(normal) * vector_length(light_vector)));
+            light_intensity += index->intensity * (normal_light_product / (vector_length(target_normal) * vector_length(light_vector)));
         }
 
         index = index->next_light;

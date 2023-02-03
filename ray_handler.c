@@ -3,6 +3,7 @@
 #include "ray_handler.h"
 #include "common.h"
 #include "object_collection.h"
+#include "light_handler.h"
 
 struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, int advance_minimum, int advance_maximum)
 {
@@ -34,7 +35,11 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
         closest_sphere.color = common.BACKGROUND_COLOR;
     }
 
-    return closest_sphere.color;
+    struct point_3d point = add_3d(camera_position, multiply_point(ray_direction, closest_intersect));  // compute intersection
+    struct point_3d point_normal = subtract_3d(point, closest_sphere.center);  // compute sphere normal at intersection
+    point_normal = divide_point(point_normal, vector_length(point_normal));
+
+    return multiply_color(closest_sphere.color, compute_lighting(point, point_normal));
 }
 
 void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, int *t1, int *t2)
@@ -42,9 +47,9 @@ void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object s
     int sphere_radius = sphere.radius;
     struct point_3d CO = subtract_3d(O, sphere.center);
 
-    float a = dot_product_3d(D, D);
-    float b = 2 * dot_product_3d(CO, D);
-    float c = dot_product_3d(CO, CO) - (sphere_radius * sphere_radius);
+    float a = dot_product_vector(D, D);
+    float b = 2 * dot_product_vector(CO, D);
+    float c = dot_product_vector(CO, CO) - (sphere_radius * sphere_radius);
 
     float discriminant = (b * b) - (4 * a * c);
     if (discriminant < 0) {

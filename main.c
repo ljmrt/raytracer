@@ -4,6 +4,7 @@
 #include "common.h"
 #include "point_controller.h"
 #include "ray_handler.h"
+#include "light_handler.h"
 
 int main(int argc, char* args[])
 {
@@ -16,16 +17,26 @@ int main(int argc, char* args[])
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         common.SCREEN_WIDTH, common.SCREEN_HEIGHT);
 
-    // which implementation is better?
+    // replace unneeded arguments with NULL?
+    struct light *light_1 = make_light(0, 0.2, *make_point_3d(0, 0, 0));  // ambient light
+    struct light *light_2 = make_light(1, 0.6, *make_point_3d(2, 1, 0));  // point light
+    struct light *light_3 = make_light(2, 0.2, *make_point_3d(1, 4, 4));  // directional light
+    insert_light(&light_1);
+    insert_light(&light_2);
+    insert_light(&light_3);
+
     // struct sphere_object *sphere_1 = make_sphere(*make_point_3d(0, -1, 3), 1, *make_rgb_color(255, 0, 0));
     struct sphere_object *sphere_1 = create_sphere(0, -1, 3, 1, 255, 0, 0);
     // struct sphere_object *sphere_2 = make_sphere(*make_point_3d(2, 0, 4), 1, *make_rgb_color(0, 0, 255));
     struct sphere_object *sphere_2 = create_sphere(2, 0, 4, 1, 0, 0, 255);
     // struct sphere_object *sphere_3 = make_sphere(*make_point_3d(-2, 0, 4), 1, *make_rgb_color(0, 255, 0));
     struct sphere_object *sphere_3 = create_sphere(-2, 0, 4, 1, 0, 255, 0);
+    // struct sphere_object *sphere_4 = make_sphere(*make_point_3d(0, -5001, 0), 5000, *make_rgb_color(255, 255, 0));
+    struct sphere_object *sphere_4 = create_sphere(0, -5001, 0, 5000, 255, 255, 0);
     // insert_sphere(&sphere_1);
     // insert_sphere(&sphere_2);
     // insert_sphere(&sphere_3);
+    // insert_sphere(&sphere_4);
 
     struct point_3d *camera_position = make_point_3d(0, 0, 0);
     // iterate through each pixel
@@ -61,10 +72,15 @@ int main(int argc, char* args[])
     }
     SDL_Quit();
 
+    // TODO: move to function
     free(camera_position);
     free(sphere_1);
     free(sphere_2);
     free(sphere_3);
+    free(sphere_4);
+    free(light_1);
+    free(light_2);
+    free(light_3);
 
     return 0;
 }

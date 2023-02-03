@@ -21,17 +21,32 @@ struct point_3d *get_viewport_position(float canvas_x, float canvas_y)
     return make_point_3d(viewport_x, viewport_y, viewport_z);
 }
 
+struct point_3d add_3d(struct point_3d point_1, struct point_3d point_2)
+{
+    return *make_point_3d((point_1.x + point_2.x), (point_1.y + point_2.y), (point_1.z + point_2.z));
+}
+
 struct point_3d subtract_3d(struct point_3d point_1, struct point_3d point_2)
 {
     return *make_point_3d((point_1.x - point_2.x), (point_1.y - point_2.y), (point_1.z - point_2.z));
 }
 
-float dot_product_3d(struct point_3d vector_1, struct point_3d vector_2)
+struct point_3d multiply_point(struct point_3d point, float constant)
+{
+    return *make_point_3d((point.x * constant), (point.y * constant), (point.z * constant));
+}
+
+struct point_3d divide_point(struct point_3d point, float constant)
+{
+    return *make_point_3d((point.x / constant), (point.y / constant), (point.z / constant));
+}
+
+float dot_product_vector(struct point_3d vector_1, struct point_3d vector_2)
 {
     return (vector_1.x * vector_2.x) + (vector_1.y * vector_2.y) + (vector_1.z * vector_2.z);
 }
 
 float vector_length(struct point_3d target_vector)
 {
-    return sqrt(dot_product_3d(target_vector, target_vector));
+    return sqrt(dot_product_vector(target_vector, target_vector));
 }
