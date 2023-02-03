@@ -18,4 +18,4 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
 // @param sphere sphere to test intersections with
 // @param t1 first solution to quadratic equation
 // @param t2 second solution to quadratic equation
-void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, int *t1, int *t2);
+void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, float *t1, float *t2);

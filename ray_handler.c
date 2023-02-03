@@ -7,22 +7,22 @@
 
 struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, int advance_minimum, int advance_maximum)
 {
-    int closest_intersect = advance_maximum;
+    int closest_t = advance_maximum;
     struct sphere_object closest_sphere;
     int closest_sphere_changed = 0;
 
     struct sphere_object *scene_head = fetch_scene_head();
     while (scene_head != NULL) {
-        int intersect1, intersect2;
-        ray_intersects(camera_position, ray_direction, *scene_head, &intersect1, &intersect2);
+        float t1, t2;
+        ray_intersects(camera_position, ray_direction, *scene_head, &t1, &t2);
         
-        if (intersect1 >= advance_minimum && intersect1 <= advance_maximum && intersect1 < closest_intersect) {
-            closest_intersect = intersect1;
+        if (t1 >= advance_minimum && t1 <= advance_maximum && t1 < closest_t) {
+            closest_t = t1;
             closest_sphere = *scene_head;
             closest_sphere_changed = 1;
         }
-        if (intersect2 >= advance_minimum && intersect2 <= advance_maximum && intersect2 < closest_intersect) {
-            closest_intersect = intersect1;
+        if (t2 >= advance_minimum && t2 <= advance_maximum && t2 < closest_t) {
+            closest_t = t2;
             closest_sphere = *scene_head;
             closest_sphere_changed = 1;
         }
@@ -32,17 +32,18 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
 
     // sphere hasn't changed
     if (closest_sphere_changed == 0) {
-        closest_sphere.color = common.BACKGROUND_COLOR;
+        return common.BACKGROUND_COLOR;
     }
 
-    struct point_3d point = add_3d(camera_position, multiply_point(ray_direction, closest_intersect));  // compute intersection
+    struct point_3d point = add_3d(camera_position, multiply_point(ray_direction, closest_t));  // compute intersection
+    struct point_3d test_point = point;
     struct point_3d point_normal = subtract_3d(point, closest_sphere.center);  // compute sphere normal at intersection
     point_normal = divide_point(point_normal, vector_length(point_normal));
 
     return multiply_color(closest_sphere.color, compute_lighting(point, point_normal));
 }
 
-void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, int *t1, int *t2)
+void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, float *t1, float *t2)
 {
     int sphere_radius = sphere.radius;
     struct point_3d CO = subtract_3d(O, sphere.center);
@@ -53,7 +54,7 @@ void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object s
 
     float discriminant = (b * b) - (4 * a * c);
     if (discriminant < 0) {
-        *t1 = 10000000;  // TODO: implement global large number instead of inf.
+        *t1 = 10000000;
         *t2 = 10000000;
         return;
     }
