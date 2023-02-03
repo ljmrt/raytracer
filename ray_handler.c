@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "ray_handler.h"
+#include "common.h"
 #include "object_collection.h"
 
 struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, int advance_minimum, int advance_maximum)
@@ -30,9 +31,7 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
 
     // sphere hasn't changed
     if (closest_sphere_changed == 0) {
-        closest_sphere.color.r = 255;
-        closest_sphere.color.g = 255;
-        closest_sphere.color.b = 255;
+        closest_sphere.color = common.BACKGROUND_COLOR;
     }
     return closest_sphere.color;
 }

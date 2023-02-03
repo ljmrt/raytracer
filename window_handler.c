@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "window_handler.h"
+#include "common.h"
 
 int initialize_window(SDL_Window **window, SDL_Renderer **renderer, char *window_name, int window_x, int window_y, int window_width, int window_height)
 {
@@ -27,7 +28,7 @@ int initialize_window(SDL_Window **window, SDL_Renderer **renderer, char *window
     }
 
     // fill window with white
-    SDL_SetRenderDrawColor(*renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_SetRenderDrawColor(*renderer, common.BACKGROUND_COLOR.r, common.BACKGROUND_COLOR.g, common.BACKGROUND_COLOR.b, 0xFF);
     SDL_RenderClear(*renderer);
     SDL_RenderPresent(*renderer);
 

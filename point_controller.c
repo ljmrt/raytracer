@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "point_controller.h"
-#include "screen_helper.h"
+#include "common.h"
 
 struct point_3d *make_point_3d(float point_x, float point_y, float point_z)
 {
@@ -15,9 +15,9 @@ struct point_3d *make_point_3d(float point_x, float point_y, float point_z)
 
 struct point_3d *get_viewport_position(float canvas_x, float canvas_y)
 {
-    float viewport_x = canvas_x * (VIEWPORT_WIDTH/SCREEN_WIDTH);
-    float viewport_y = canvas_y * (VIEWPORT_HEIGHT/SCREEN_HEIGHT);
-    float viewport_z = VIEWPORT_DISTANCE;
+    float viewport_x = canvas_x * (common.VIEWPORT_WIDTH/common.SCREEN_WIDTH);
+    float viewport_y = canvas_y * (common.VIEWPORT_HEIGHT/common.SCREEN_HEIGHT);
+    float viewport_z = common.VIEWPORT_DISTANCE;
     return make_point_3d(viewport_x, viewport_y, viewport_z);
 }
 
