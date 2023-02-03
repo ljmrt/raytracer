@@ -33,6 +33,7 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
     if (closest_sphere_changed == 0) {
         closest_sphere.color = common.BACKGROUND_COLOR;
     }
+
     return closest_sphere.color;
 }
 

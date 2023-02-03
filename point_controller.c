@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "point_controller.h"
 #include "common.h"
 
@@ -29,4 +29,9 @@ struct point_3d subtract_3d(struct point_3d point_1, struct point_3d point_2)
 float dot_product_3d(struct point_3d vector_1, struct point_3d vector_2)
 {
     return (vector_1.x * vector_2.x) + (vector_1.y * vector_2.y) + (vector_1.z * vector_2.z);
+}
+
+float vector_length(struct point_3d target_vector)
+{
+    return sqrt(dot_product_3d(target_vector, target_vector));
 }

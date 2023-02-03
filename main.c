@@ -16,8 +16,8 @@ int main(int argc, char* args[])
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         common.SCREEN_WIDTH, common.SCREEN_HEIGHT);
 
-    // struct sphere_object *sphere_1 = make_sphere(*make_point_3d(0, -1, 3), 1, *make_rgb_color(255, 0, 0));
     // which implementation is better?
+    // struct sphere_object *sphere_1 = make_sphere(*make_point_3d(0, -1, 3), 1, *make_rgb_color(255, 0, 0));
     struct sphere_object *sphere_1 = create_sphere(0, -1, 3, 1, 255, 0, 0);
     // struct sphere_object *sphere_2 = make_sphere(*make_point_3d(2, 0, 4), 1, *make_rgb_color(0, 0, 255));
     struct sphere_object *sphere_2 = create_sphere(2, 0, 4, 1, 0, 0, 255);
