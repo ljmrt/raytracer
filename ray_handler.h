@@ -9,7 +9,7 @@
 // @param advance_minimum minimum amount that the trace can advance by
 // @param advance_maximum maximum amount that the trace can advance by
 // @return rgb color of the intersection
-struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, int advance_minimum, int advance_maximum);
+struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, float advance_minimum, float advance_maximum);
 
 // solve quadratic equation for if a ray intersects with a sphere
 //

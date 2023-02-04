@@ -5,9 +5,9 @@
 #include "object_collection.h"
 #include "light_handler.h"
 
-struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, int advance_minimum, int advance_maximum)
+struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, float advance_minimum, float advance_maximum)
 {
-    int closest_t = advance_maximum;
+    float closest_t = advance_maximum;
     struct sphere_object closest_sphere;
     int closest_sphere_changed = 0;
 
@@ -36,9 +36,10 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
     }
 
     struct point_3d point = add_3d(camera_position, multiply_point(ray_direction, closest_t));  // compute intersection
-    struct point_3d test_point = point;
     struct point_3d point_normal = subtract_3d(point, closest_sphere.center);  // compute sphere normal at intersection
     point_normal = divide_point(point_normal, vector_length(point_normal));
+
+    struct rgb_color return_color = multiply_color(closest_sphere.color, compute_lighting(point, point_normal));
 
     return multiply_color(closest_sphere.color, compute_lighting(point, point_normal));
 }

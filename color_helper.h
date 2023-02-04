@@ -2,9 +2,9 @@
 #define COLOR_HELPER_H
 
 struct rgb_color {
-    int r;  // intensity of red
-    int b;  // intensity of blue
-    int g;  // intensity of green
+    float r;  // intensity of red
+    float b;  // intensity of blue
+    float g;  // intensity of green
 };
 
 // make a rgb color struct
@@ -13,7 +13,7 @@ struct rgb_color {
 // @param blue intensity of blue
 // @param green intensity of green
 // @return made rgb color struct pointer
-struct rgb_color *make_rgb_color(int red, int blue, int green);
+struct rgb_color *make_rgb_color(float red, float blue, float green);
 
 // get the product of a color and a constant
 //

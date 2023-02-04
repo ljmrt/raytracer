@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "light_handler.h"
 #include "point_controller.h"
