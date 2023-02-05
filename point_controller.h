@@ -50,12 +50,6 @@ struct point_3d multiply_point(struct point_3d point, float constant);
 // @return quotient
 struct point_3d divide_point(struct point_3d point, float constant);
 
-// get the opposite of a point
-//
-// @param point point to get the opposite of
-// @return opposite
-struct point_3d opposite_point(struct point_3d point);
-
 // get the dot product of two 3d points
 // equation: a · b = |a| × |b| × cos(θ)
 // where |a| and |b| are the magnitude of their vectors and θ is the angle between them
