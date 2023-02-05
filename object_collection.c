@@ -5,12 +5,13 @@
 
 struct sphere_object *head_object = NULL;
 
-struct sphere_object *make_sphere(struct point_3d sphere_center, int sphere_radius, struct rgb_color sphere_color)
+struct sphere_object *make_sphere(struct point_3d sphere_center, int sphere_radius, struct rgb_color sphere_color, int sphere_specular)
 {
     struct sphere_object *made_sphere = (struct sphere_object *)malloc(sizeof(struct sphere_object));
     made_sphere->center = sphere_center;
     made_sphere->radius = sphere_radius;
     made_sphere->color = sphere_color;
+    made_sphere->specular = sphere_specular;
     made_sphere->next_object = NULL;
 
     return made_sphere;

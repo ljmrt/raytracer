@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "light_handler.h"
 #include "point_controller.h"
 
@@ -40,7 +40,7 @@ struct light *fetch_lights_head()
     return head_light;
 }
 
-float compute_lighting(struct point_3d target_point, struct point_3d target_normal)
+float compute_lighting(struct point_3d target_point, struct point_3d target_normal, struct point_3d view_vector, int target_specular)
 {
     float light_intensity = 0;
 
@@ -64,10 +64,21 @@ float compute_lighting(struct point_3d target_point, struct point_3d target_norm
             // set light_vector to the light's direction
             light_vector = index->position;  // position member changes context depending on id
         }
+        
+        float normal_dot_light = dot_product_vector(target_normal, light_vector);
 
-        float normal_light_product = dot_product_vector(target_normal, light_vector);
-        if (normal_light_product > 0) {
-            light_intensity += index->intensity * (normal_light_product / (vector_length(target_normal) * vector_length(light_vector)));
+        // diffuse object
+        if (normal_dot_light > 0) {
+            light_intensity += index->intensity * (normal_dot_light / (vector_length(target_normal) * vector_length(light_vector)));
+        }
+
+        // specular object
+        if (target_specular != -1) {
+            struct point_3d reflected_ray = subtract_3d(multiply_point(target_normal, 2 * normal_dot_light), light_vector);
+            int ray_dot_view = dot_product_vector(reflected_ray, view_vector);
+            if (ray_dot_view > 0) {
+                light_intensity += index->intensity * pow(ray_dot_view / (vector_length(reflected_ray) * vector_length(view_vector)), target_specular);
+            }
         }
 
         index = index->next_light;

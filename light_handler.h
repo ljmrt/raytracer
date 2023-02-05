@@ -34,7 +34,9 @@ struct light *fetch_lights_head();
 // compute the intensity of light at a point
 // uses diffuse illumination 
 //
-// @param target_point point to use in calculations
-// @param target_normal normal of the point to use in calculations
+// @param target_point targeted point to use in calculations
+// @param target_normal normal of the targeted point to use in calculations
+// @param view_vector vector pointing from object to camera
+// @param target_specular specularity of the target object
 // @return intensity of light at point
-float compute_lighting(struct point_3d target_point, struct point_3d target_normal);
+float compute_lighting(struct point_3d target_point, struct point_3d target_normal, struct point_3d view_vector, int target_specular);

@@ -39,9 +39,9 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
     struct point_3d point_normal = subtract_3d(point, closest_sphere.center);  // compute sphere normal at intersection
     point_normal = divide_point(point_normal, vector_length(point_normal));
 
-    struct rgb_color return_color = multiply_color(closest_sphere.color, compute_lighting(point, point_normal));
+    float compute_lighting_return = compute_lighting(point, point_normal, opposite_point(ray_direction), closest_sphere.specular);
 
-    return multiply_color(closest_sphere.color, compute_lighting(point, point_normal));
+    return multiply_color(closest_sphere.color, compute_lighting_return);
 }
 
 void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, float *t1, float *t2)

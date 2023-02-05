@@ -41,6 +41,11 @@ struct point_3d divide_point(struct point_3d point, float constant)
     return *make_point_3d((point.x / constant), (point.y / constant), (point.z / constant));
 }
 
+struct point_3d opposite_point(struct point_3d point)
+{
+    return *make_point_3d((-point.x), (-point.y), (-point.z));
+}
+
 float dot_product_vector(struct point_3d vector_1, struct point_3d vector_2)
 {
     return (vector_1.x * vector_2.x) + (vector_1.y * vector_2.y) + (vector_1.z * vector_2.z);
