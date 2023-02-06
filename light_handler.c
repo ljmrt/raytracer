@@ -75,7 +75,7 @@ float compute_lighting(struct point_3d target_point, struct point_3d target_norm
         // specular object
         if (target_specular != -1) {
             struct point_3d reflected_ray = subtract_3d(multiply_point(target_normal, 2 * normal_dot_light), light_vector);
-            int ray_dot_view = dot_product_vector(reflected_ray, view_vector);
+            float ray_dot_view = dot_product_vector(reflected_ray, view_vector);
             if (ray_dot_view > 0) {
                 light_intensity += index->intensity * pow(ray_dot_view / (vector_length(reflected_ray) * vector_length(view_vector)), target_specular);
             }
