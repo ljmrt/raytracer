@@ -5,6 +5,7 @@
 #include "point_controller.h"
 #include "ray_handler.h"
 #include "light_handler.h"
+#include "color_helper.h"
 
 int main(int argc, char* args[])
 {
@@ -41,9 +42,7 @@ int main(int argc, char* args[])
             struct point_3d *direction = get_viewport_position(x, y);  // translate canvas coordinates to viewport coordinates
             struct rgb_color color = trace_ray(*camera_position, *direction, 1, 10000000);  // get the color at the intersection of the ray
             
-            if (color.r > 255) color.r = 255;
-            if (color.g > 255) color.g = 255;
-            if (color.b > 255) color.b = 255;
+            clamp_color(&color);
             SDL_SetRenderDrawColor(pixel_renderer, color.r, color.g, color.b, 255);
 
 

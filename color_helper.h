@@ -22,4 +22,9 @@ struct rgb_color *make_rgb_color(float red, float blue, float green);
 // @return product
 struct rgb_color multiply_color(struct rgb_color color, float constant);
 
+// clamp the color between 0-255 to prevent color errors
+//
+// @param color color to clamp(gets modified)
+void clamp_color(struct rgb_color *color);
+
 #endif  // COLOR_HELPER_H

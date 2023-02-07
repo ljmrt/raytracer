@@ -21,4 +21,11 @@ static struct client common = {
     .BACKGROUND_COLOR = {.r = 255, .b = 255, .g = 255},
 };  // TODO: implement common struct handler functions
 
+// commom math function, clamp
+//
+// @param target variable to clamp
+// @param minimum minimum value that the variable can be
+// @param maximum maximum value that the variable can be
+float common_clamp(float target, float minimum, float maximum);
+
 #endif  // COMMON_H
