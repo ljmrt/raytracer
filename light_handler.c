@@ -2,6 +2,8 @@
 #include <math.h>
 #include "light_handler.h"
 #include "point_controller.h"
+#include "ray_handler.h"
+#include "object_collection.h"
 
 struct light *head_light = NULL;
 
@@ -56,13 +58,26 @@ float compute_lighting(struct point_3d target_point, struct point_3d target_norm
         }
 
         struct point_3d light_vector;
+        float t_maximum;
         // if light is point
         if (index->id == 1) {
             light_vector = subtract_3d(index->position, target_point);
+            t_maximum = 1;
         } else {
-            // light is direction
+            // light is directional
             // set light_vector to the light's direction
             light_vector = index->position;  // position member changes context depending on id
+            t_maximum = 10000000;
+        }
+
+        // check if light is obstructed(point is shadowed)
+        float shadow_t;  // sphere position on ray
+        struct sphere_object shadow_sphere;  // the sphere blocking the point from receiving light
+        int found = closest_intersection(target_point, light_vector, 0.001, t_maximum, &shadow_t, &shadow_sphere);
+        // sphere has changed(there is something blocking)
+        if (found) {
+            index = index->next_light;
+            continue;
         }
         
         float normal_dot_light = dot_product_vector(target_normal, light_vector);

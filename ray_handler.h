@@ -6,10 +6,10 @@
 //
 // @param camera_position position of the camera in 3d space
 // @param ray_direction direction of the ray
-// @param advance_minimum minimum amount that the trace can advance by
-// @param advance_maximum maximum amount that the trace can advance by
+// @param t_minimum minimum amount that the trace can advance by
+// @param t_maximum maximum amount that the trace can advance by
 // @return rgb color of the intersection
-struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, float advance_minimum, float advance_maximum);
+struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, float t_minimum, float t_maximum);
 
 // solve quadratic equation for if a ray intersects with a sphere
 //
@@ -19,3 +19,14 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
 // @param t1 first solution to quadratic equation
 // @param t2 second solution to quadratic equation
 void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, float *t1, float *t2);
+
+// find the closest intersection of a ray with a sphere
+//
+// @param camera_position position of the camera in 3d space
+// @param ray_direction direction of the ray
+// @param t_minimum the minimum t can be
+// @param t_maximum the maximum t can be
+// @param closest_t used to return the closest t
+// @param closest_sphere used to return the closest sphere
+// @return if a sphere was found
+int closest_intersection(struct point_3d camera_position, struct point_3d ray_direction, float t_minimum, float t_maximum, float *closest_t, struct sphere_object *closest_sphere);
