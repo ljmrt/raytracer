@@ -6,7 +6,7 @@
 #include "object_collection.h"
 #include "light_handler.h"
 
-struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, float t_minimum, float t_maximum)
+struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_direction, float t_minimum, float t_maximum, int recursion_depth)
 {
     float closest_t = t_maximum;
     struct sphere_object closest_sphere;
@@ -21,9 +21,20 @@ struct rgb_color trace_ray(struct point_3d camera_position, struct point_3d ray_
     struct point_3d point_normal = subtract_3d(point, closest_sphere.center);  // compute sphere normal at intersection
     point_normal = divide_point(point_normal, vector_length(point_normal));
 
-    float light_intensity = compute_lighting(point, point_normal, multiply_point(ray_direction, -1), closest_sphere.specular);
+    struct point_3d opposite_direction = multiply_point(ray_direction, -1);
 
-    return multiply_color(closest_sphere.color, light_intensity);
+    float light_intensity = compute_lighting(point, point_normal, opposite_direction, closest_sphere.specular);
+    struct rgb_color local_color = multiply_color(closest_sphere.color, light_intensity);
+    
+    float sphere_reflective = closest_sphere.reflective;
+    if (recursion_depth <= 0 || sphere_reflective <= 0) {
+        return local_color;
+    }
+
+    struct point_3d reflected_ray = reflect_ray(opposite_direction, point_normal);
+    struct rgb_color reflected_color = trace_ray(point, reflected_ray, 0.001, INFINITY, --recursion_depth);
+
+    return add_color(multiply_color(local_color, (1 - sphere_reflective)), multiply_color(reflected_color, sphere_reflective));
 }
 
 void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object sphere, float *t1, float *t2)
@@ -37,8 +48,8 @@ void ray_intersects(struct point_3d O, struct point_3d D, struct sphere_object s
 
     float discriminant = (b * b) - (4 * a * c);
     if (discriminant < 0) {
-        *t1 = 10000000;
-        *t2 = 10000000;
+        *t1 = INFINITY;
+        *t2 = INFINITY;
         return;
     }
 
@@ -69,4 +80,9 @@ int closest_intersection(struct point_3d camera_position, struct point_3d ray_di
         scene_head = scene_head->next_object;
     }
     return found;
+}
+
+struct point_3d reflect_ray(struct point_3d target_vector, struct point_3d target_normal)
+{
+    return subtract_3d(multiply_point(target_normal, 2 * dot_product_vector(target_vector, target_normal)), target_vector);
 }

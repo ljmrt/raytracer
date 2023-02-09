@@ -12,6 +12,11 @@ struct rgb_color *make_rgb_color(float red, float green, float blue)
     return made_struct;
 }
 
+struct rgb_color add_color(struct rgb_color color_1, struct rgb_color color_2)
+{
+    return *make_rgb_color((color_1.r + color_2.r), (color_1.g + color_2.g), (color_1.b + color_2.b));
+}
+
 struct rgb_color multiply_color(struct rgb_color color, float constant)
 {
     return *make_rgb_color((color.r * constant), (color.g * constant), (color.b * constant));

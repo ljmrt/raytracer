@@ -18,7 +18,7 @@ static struct client common = {
     .VIEWPORT_WIDTH = 1,
     .VIEWPORT_HEIGHT = 1,
     .VIEWPORT_DISTANCE = 1,
-    .BACKGROUND_COLOR = {.r = 255, .b = 255, .g = 255},
+    .BACKGROUND_COLOR = {.r = 0, .b = 0, .g = 0},
 };  // TODO: implement common struct handler functions
 
 // commom math function, clamp

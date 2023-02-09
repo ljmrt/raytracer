@@ -18,18 +18,17 @@ int main(int argc, char* args[])
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         common.SCREEN_WIDTH, common.SCREEN_HEIGHT);
 
-    // replace unneeded arguments with NULL?
     struct light *light_1 = make_light(0, 0.2, *make_point_3d(0, 0, 0));  // ambient light
     struct light *light_2 = make_light(1, 0.6, *make_point_3d(2, 1, 0));  // point light
-    struct light *light_3 = make_light(2, 0.2, *make_point_3d(1, 4, 4));  // directional light
+    // struct light *light_3 = make_light(2, 0.2, *make_point_3d(1, 4, 4));  // directional light
     insert_light(&light_1);
     insert_light(&light_2);
-    insert_light(&light_3);
+    // insert_light(&light_3);
 
-    struct sphere_object *sphere_1 = make_sphere(*make_point_3d(0, -1, 3), 1, *make_rgb_color(255, 0, 0), 500);
-    struct sphere_object *sphere_2 = make_sphere(*make_point_3d(2, 0, 4), 1, *make_rgb_color(0, 0, 255), 500);
-    struct sphere_object *sphere_3 = make_sphere(*make_point_3d(-2, 0, 4), 1, *make_rgb_color(0, 255, 0), 10);
-    struct sphere_object *sphere_4 = make_sphere(*make_point_3d(0, -5001, 0), 5000, *make_rgb_color(255, 255, 0), 1000);
+    struct sphere_object *sphere_1 = make_sphere(*make_point_3d(0, -1, 3), 1, *make_rgb_color(255, 0, 0), 500, 0.2);
+    struct sphere_object *sphere_2 = make_sphere(*make_point_3d(2, 0, 4), 1, *make_rgb_color(0, 0, 255), 500, 0.3);
+    struct sphere_object *sphere_3 = make_sphere(*make_point_3d(-2, 0, 4), 1, *make_rgb_color(0, 255, 0), 10, 0.4);
+    struct sphere_object *sphere_4 = make_sphere(*make_point_3d(0, -5001, 0), 5000, *make_rgb_color(255, 255, 0), 1000, 0.5);
     insert_sphere(&sphere_1);
     insert_sphere(&sphere_2);
     insert_sphere(&sphere_3);
@@ -40,7 +39,7 @@ int main(int argc, char* args[])
     for (int x = -(common.SCREEN_WIDTH/2); x < (common.SCREEN_WIDTH/2); x++) {
         for (int y = -(common.SCREEN_HEIGHT/2); y < (common.SCREEN_HEIGHT/2); y++) {
             struct point_3d *direction = get_viewport_position(x, y);  // translate canvas coordinates to viewport coordinates
-            struct rgb_color color = trace_ray(*camera_position, *direction, 1, 10000000);  // get the color at the intersection of the ray
+            struct rgb_color color = trace_ray(*camera_position, *direction, 1, INFINITY, 3);  // get the color at the intersection of the ray
             
             clamp_color(&color);
             SDL_SetRenderDrawColor(pixel_renderer, color.r, color.g, color.b, 255);
@@ -80,7 +79,7 @@ int main(int argc, char* args[])
     free(sphere_4);
     free(light_1);
     free(light_2);
-    free(light_3);
+    // free(light_3);
 
     return 0;
 }

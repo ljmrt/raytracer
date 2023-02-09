@@ -15,6 +15,13 @@ struct rgb_color {
 // @return made rgb color struct pointer
 struct rgb_color *make_rgb_color(float red, float blue, float green);
 
+// get the sum of two colors
+//
+// @param color_1 first color to add
+// @param color_2 second color to add
+// @return sum
+struct rgb_color add_color(struct rgb_color color_1, struct rgb_color color_2);
+
 // get the product of a color and a constant
 //
 // @param color color to be multiplied

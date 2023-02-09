@@ -9,6 +9,7 @@ struct sphere_object {
     int radius;  // radius of the sphere
     struct rgb_color color;  // color of the sphere in rgb
     int specular;  // specularity of the sphere, -1 = matte
+    float reflective;  // reflectivity of the sphere 0-1
     struct sphere_object *next_object;  // next object in linked list
 };
 
@@ -18,8 +19,9 @@ struct sphere_object {
 // @param sphere_radius radius of the made sphere
 // @param sphere_color color of the made sphere in rgb
 // @param sphere_specular specularity of the sphere
+// @param sphere_reflective reflectivity of the sphere
 // @return made sphere object
-struct sphere_object *make_sphere(struct point_3d sphere_center, int sphere_radius, struct rgb_color sphere_color, int sphere_specular);
+struct sphere_object *make_sphere(struct point_3d sphere_center, int sphere_radius, struct rgb_color sphere_color, int sphere_specular, float sphere_reflective);
 
 // TODO: implement generic scene linked list
 // insert sphere into scene linked list(at head)
