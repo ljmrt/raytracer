@@ -52,6 +52,7 @@ int closest_intersection(struct point_3d camera_position, struct point_3d ray_di
     int found = 0;
     while (scene_head != NULL) {
         float t1, t2;
+        t1 = t2 = 0;
         ray_intersects(camera_position, ray_direction, *scene_head, &t1, &t2);
         
         if (t1 >= t_minimum && t1 <= t_maximum && t1 < *closest_t) {

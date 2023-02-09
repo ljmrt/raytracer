@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "light_handler.h"
@@ -67,7 +68,7 @@ float compute_lighting(struct point_3d target_point, struct point_3d target_norm
             // light is directional
             // set light_vector to the light's direction
             light_vector = index->position;  // position member changes context depending on id
-            t_maximum = 10000000;
+            t_maximum = INFINITY;
         }
 
         // check if light is obstructed(point is shadowed)

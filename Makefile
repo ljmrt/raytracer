@@ -1,7 +1,7 @@
 TARGET = prog.out
 LIBS = -lSDL2main -lSDL2 -lm
 CC = gcc
-CFLAGS = -fPIC -Wall -Werror -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-unused-variable -Wno-maybe-uninitialized -O2
+CFLAGS = -fPIC -Wall -Werror -Wextra -Wno-unused-result -Wno-unused-parameter -Wno-unused-variable -O2
 
 .PHONY: default all clean
 
