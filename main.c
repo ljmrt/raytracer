@@ -28,7 +28,7 @@ int main(int argc, char* args[])
     struct sphere_object *sphere_1 = make_sphere(*make_point_3d(0, -1, 3), 1, *make_rgb_color(255, 0, 0), 500, 0.2);
     struct sphere_object *sphere_2 = make_sphere(*make_point_3d(2, 0, 4), 1, *make_rgb_color(0, 0, 255), 500, 0.3);
     struct sphere_object *sphere_3 = make_sphere(*make_point_3d(-2, 0, 4), 1, *make_rgb_color(0, 255, 0), 10, 0.4);
-    struct sphere_object *sphere_4 = make_sphere(*make_point_3d(0, -5001, 0), 5000, *make_rgb_color(255, 255, 0), 1000, 0.5);
+    struct sphere_object *sphere_4 = make_sphere(*make_point_3d(0, -5001, 0), 5000, *make_rgb_color(255, 255, 0), 1000, 0.0);  // the reflections are strange
     insert_sphere(&sphere_1);
     insert_sphere(&sphere_2);
     insert_sphere(&sphere_3);
